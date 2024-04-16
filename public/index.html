@@ -5,10 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
+    <link rel="stylesheet" href="css/layout.css">
     <script src="js/main.js" type="module" defer></script>
 </head>
 <body>
     <h1>Testa API</h1>
+
+    <div class="head-container">
+        <div class="logo-container">
+            <h1>Kurslagring</h1>
+        </div>
+    </div>
+
+
+     <!--POPUP FÖR ATT LÄGGA TILL KURS-->
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form class="courseform" method="post">
+                <label for="coursecode">Kurskod:</label>
+                <input type="text" id="coursecode" name="coursecode">
+                <label for="coursename">Kursnamn:</label>
+                <input type="text" id="coursename" name="coursename">
+                <label for="progression">Progression:</label>
+                <select id="progression" name="progression">
+                    <option value="" disabled selected hidden>Välj progression:</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                </select>
+                <label for="syllabus">Länk till kursplan:</label>
+                <input type="text" id="syllabus" name="syllabus">
+                <input type="submit" class="button" value="Lägg till kurs">
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="course-container">
+            <!--Container som uppdateras med DOM-manipulation-->
+            <div class="courselist-container"></div>
+        </div>
+        <!-- Knapp för att öppna popup -->
+        <button id="myBtn" class="button">Lägg till ny kurs</button>
+        <button id="deleteBtn" class="button">Rensa kurslistan</button>
+    </div>
     
 </body>
 </html>

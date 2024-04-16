@@ -41,8 +41,8 @@ async function updateJob(id, companyName, jobtitle, location, startdate, enddate
         description: description
     };
 
-    const response = await fetch(url + '/' + id, { // Lägg till id i URL:en för att ange vilket jobb som ska uppdateras
-        method: "PUT", // Använd PUT-metoden för att uppdatera
+    const response = await fetch(url + '/' + id, { 
+        method: "PUT", 
         headers: {
             "Content-Type": "application/json"
         },
@@ -54,8 +54,8 @@ async function updateJob(id, companyName, jobtitle, location, startdate, enddate
 };
 
 async function deleteJob(id) {
-    const response = await fetch(url + '/' + id, { // Lägg till id i URL:en för att ange vilket jobb som ska raderas
-        method: "DELETE", // Använd DELETE-metoden för att radera
+    const response = await fetch(url + '/' + id, { 
+        method: "DELETE", 
         headers: {
             "Content-Type": "application/json"
         }
@@ -63,4 +63,39 @@ async function deleteJob(id) {
 
     const data = await response.json();
     console.log(data);
-}
+};
+
+
+//Ladda in DOM innan JS körs
+document.addEventListener("DOMContentLoaded", function () {
+    var modal = document.querySelector("#myModal"); //Container för popup
+    var btn = document.querySelector("#myBtn"); //Knapp för att öppna popup
+    var closeBtn = document.querySelector(".close"); //Kryss för att stänga popup
+    /*
+    var form = document.querySelector(".courseform");
+    var courseListContainer = document.querySelector(".courselist-container");
+    var coursecodeInput = document.querySelector("#coursecode");
+    var coursenameInput = document.querySelector("#coursename");
+    var progressionInput = document.querySelector("#progression");
+    var syllabusInput = document.querySelector("#syllabus");
+    var deleteBtn = document.querySelector("#deleteBtn"); //Knapp för att öppna popup
+    //Ladda in sparade kurser vid sidladdning
+    displayCourses();*/
+    // Kontrollera att modal, btn och span har validerats innan de används
+    if (modal && btn && closeBtn) {
+        // WÖppna popup när användare trycker på knappen för "lägg till kurs"
+        btn.onclick = function () {
+            modal.style.display = "block";
+        };
+        // Stäng popup när användaren trycker på kryss
+        closeBtn.onclick = function () {
+            modal.style.display = "none";
+        };
+        // Stäng popup när användaren trycker utanför popupfönstret
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+    }
+});
