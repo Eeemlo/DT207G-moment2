@@ -51,4 +51,16 @@ async function updateJob(id, companyName, jobtitle, location, startdate, enddate
 
     const data = await response.json();
     console.log(data);
+};
+
+async function deleteJob(id) {
+    const response = await fetch(url + '/' + id, { // Lägg till id i URL:en för att ange vilket jobb som ska raderas
+        method: "DELETE", // Använd DELETE-metoden för att radera
+        headers: {
+            "Content-Type": "application/json"
+        }
+    });
+
+    const data = await response.json();
+    console.log(data);
 }
