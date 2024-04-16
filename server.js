@@ -109,7 +109,22 @@ app.post('/api/work_experience', (req, res) => {
 
 //Ändra jobberfarenhet
 app.put('/api/work_experience/:id', (req, res) => {
-    res.json({message: "Jobberfarenhet uppdaterad: " + req.params.id});
+    let id = req.params.id;
+    let companyName = req.body.company_name;
+    let jobtitle = req.body.job_title;
+    let location = req.body.location;
+    let startdate = req.body.startdate;
+    let enddate = req.body.enddate;
+    let description = req.body.description;
+
+    client.query('UPDATE work_experience SET company_name = $1, job_title = $2, location = $3, startdate = $4, enddate = $5, description = $6 WHERE id = $7;', [companyName, jobtitle, location, startdate, enddate, description, id], (err, results) => {
+        if (err) {
+            res.status(500).json({ error: "Något gick fel: " + err });
+            return;
+        }
+
+        res.json({ message: "Jobberfarenhet uppdaterad", id: id });
+    });
 });
 
 //Radera jobberfarenhet
