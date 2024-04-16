@@ -129,7 +129,16 @@ app.put('/api/work_experience/:id', (req, res) => {
 
 //Radera jobberfarenhet
 app.delete('/api/work_experience/:id', (req, res) => {
-    res.json({message: "Jobberfarenhet raderad: " + req.params.id});
+    let id = req.params.id;
+
+    client.query('DELETE FROM work_experience WHERE id = $1;', [id], (err, results) => {
+        if (err) {
+            res.status(500).json({ error: "Något gick fel: " + err });
+            return;
+        }
+
+        res.json({ message: "Jobberfarenhet raderad", id: id });
+    });
 });
 
 //Starta
