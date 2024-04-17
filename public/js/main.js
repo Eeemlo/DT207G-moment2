@@ -1,5 +1,7 @@
 let url = "http://127.0.0.1:3000/api/work_experience";
 
+const deleteBtn = document.querySelectorAll(".deleteBtn");
+
 async function getData() {
     const response = await fetch(url);
     const data = await response.json();
@@ -35,6 +37,7 @@ async function iterateData(data) {
         <button class="editBtn">Redigera</button><button class="deleteBtn">Radera</button>
         </div></div>
         `;
+        
         } else {
             joblistContainer.innerHTML += `<div class="job"><div><h3>${job.job_title} @ </h3>
             <h3>${job.company_name}</h3>
@@ -42,8 +45,25 @@ async function iterateData(data) {
             <p>${job.description}</p>
             <button class="editBtn">Redigera</button><button class="deleteBtn">Radera</button></div></div>`;
         }
+
+        // Hämta de nyligen tillagda knapparna
+        const editBtns = document.querySelectorAll(".editBtn");
+        const deleteBtns = document.querySelectorAll(".deleteBtn");
+
+        // Lägg till händelselyssnare för varje knapp
+        editBtns.forEach((editBtn) => {
+            editBtn.addEventListener("click", () => {
+                updateJob(job.id, job.companyName, job.jobtitle, job.location, job.startdate, job.enddate, job.description);
+            });
+        });
+
+        deleteBtns.forEach((deleteBtn) => {
+            deleteBtn.addEventListener("click", () => {
+                deleteJob(job.id);
+            });
+        });
     });
-}
+};
 
 async function createJob(
     companyName,
