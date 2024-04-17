@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="sv">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,18 +8,21 @@
 
     <link rel="stylesheet" href="css/layout.css">
     <script src="js/main.js" type="module" defer></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
-    <h1>Testa API</h1>
 
     <div class="head-container">
-        <div class="logo-container">
-            <h1>Kurslagring</h1>
-        </div>
+            <h1>Mitt CV</h1>
     </div>
 
 
-     <!--POPUP FÖR ATT LÄGGA TILL KURS-->
+    <!--POPUP FÖR ATT LÄGGA TILL KURS-->
     <!-- The Modal -->
     <div id="myModal" class="modal">
 
@@ -45,14 +49,14 @@
     </div>
 
     <div class="container">
-        <div class="course-container">
+        <div class="job-container">
             <!--Container som uppdateras med DOM-manipulation-->
-            <div class="courselist-container"></div>
+            <div class="joblist"></div>
+                    <!-- Knapp för att öppna popup -->
+        <button id="myBtn" class="button">Lägg till jobb</button>
         </div>
-        <!-- Knapp för att öppna popup -->
-        <button id="myBtn" class="button">Lägg till ny kurs</button>
-        <button id="deleteBtn" class="button">Rensa kurslistan</button>
     </div>
-    
+
 </body>
+
 </html>
