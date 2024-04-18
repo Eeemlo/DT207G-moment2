@@ -16,11 +16,17 @@
 </head>
 
 <body>
+    <header>    <div class="head-container">
+        <h1>Curriculum Vitae</h1>
+        <h2>Emma Lorensson</h2>
+</div>
+</header>
 
-    <div class="head-container">
-            <h1>Mitt CV</h1>
-    </div>
-
+<div class="custom-shape-divider-top">
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+        <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+    </svg>
+  </div>
 
     <!--POPUP FÖR ATT LÄGGA TILL KURS-->
     <!-- The Modal -->
@@ -29,21 +35,27 @@
         <!-- Modal content -->
         <div class="modal-content">
             <span class="close">&times;</span>
-            <form class="courseform" method="post">
-                <label for="coursecode">Kurskod:</label>
-                <input type="text" id="coursecode" name="coursecode">
-                <label for="coursename">Kursnamn:</label>
-                <input type="text" id="coursename" name="coursename">
-                <label for="progression">Progression:</label>
-                <select id="progression" name="progression">
-                    <option value="" disabled selected hidden>Välj progression:</option>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                </select>
-                <label for="syllabus">Länk till kursplan:</label>
-                <input type="text" id="syllabus" name="syllabus">
-                <input type="submit" class="button" value="Lägg till kurs">
+            <form class="form" method="post">
+                <label for="employer">Arbetsgivare:</label>
+                <input type="text" id="employer" name="employer">
+                <label for="position">Roll:</label>
+                <input type="text" id="position" name="position">
+                <label for="location">Ort:</label>
+                <input type="text" id="location" name="location">
+                <span class="fromto">
+                    <span>
+                <label for="startdate">Startdatum:</label>
+                <input type="date" id="startdate" name="startdate">
+            </span><span>
+                <label for="enddate">Slutdatum:</label>
+                <input type="date" id="enddate" name="enddate">
+            </span><span>
+                <input type="checkbox" id="ongoing" name="ongoing">
+                <label for="ongoing">Pågående</label></span>
+            </span>
+                <label for="description">Beskrivning:</label>
+                <textarea id="description" name="description"></textarea>
+                <input type="submit" class="button" value="Spara">
             </form>
         </div>
     </div>
@@ -55,6 +67,12 @@
                     <!-- Knapp för att öppna popup -->
         <button id="myBtn" class="button">Lägg till jobb</button>
         </div>
+    </div>
+
+    <div class="custom-shape-divider-bottom">
+        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+        </svg>
     </div>
 
 </body>

@@ -1,6 +1,4 @@
-let url = "http://127.0.0.1:3000/api/work_experience";
-
-const deleteBtn = document.querySelectorAll(".deleteBtn");
+let url = "http://127.0.0.1:3001/api/work_experience";
 
 async function getData() {
     const response = await fetch(url);
@@ -34,46 +32,68 @@ async function iterateData(data) {
         <h3>${job.company_name}</h3>
         <h4>${shortenedStartdate} - ${shortenedEnddate}</h4>
         <p>${job.description}</p>
-        <button class="editBtn">Redigera</button><button class="deleteBtn">Radera</button>
+        <button class="editBtn" data-id="${job.id}">Redigera</button><button class="deleteBtn" data-id="${job.id}">Radera</button>
         </div></div>
         `;
-        
         } else {
             joblistContainer.innerHTML += `<div class="job"><div><h3>${job.job_title} @ </h3>
             <h3>${job.company_name}</h3>
             <h4>${shortenedStartdate} - Pågående</h4>
             <p>${job.description}</p>
-            <button class="editBtn">Redigera</button><button class="deleteBtn">Radera</button></div></div>`;
+            <button class="editBtn" data-id="${job.id}">Redigera</button><button class="deleteBtn" data-id="${job.id}">Radera</button></div></div>`;
         }
+    });
 
-        // Hämta de nyligen tillagda knapparna
-        const editBtns = document.querySelectorAll(".editBtn");
-        const deleteBtns = document.querySelectorAll(".deleteBtn");
-
-        // Lägg till händelselyssnare för varje knapp
-        editBtns.forEach((editBtn) => {
-            editBtn.addEventListener("click", () => {
-                updateJob(job.id, job.companyName, job.jobtitle, job.location, job.startdate, job.enddate, job.description);
-            });
-        });
-
-        deleteBtns.forEach((deleteBtn) => {
-            deleteBtn.addEventListener("click", () => {
-                deleteJob(job.id);
-            });
+    // Lägg till händelselyssnare för redigeringsknappar
+    const editBtns = document.querySelectorAll(".editBtn");
+    editBtns.forEach((editBtn) => {
+        editBtn.addEventListener("click", (e) => {
+            const jobId = e.target.getAttribute("data-id");
+            openEditModal(jobId);
         });
     });
-};
 
-async function createJob(
-    companyName,
-    jobtitle,
-    location,
-    startdate,
-    enddate,
-    description
-) {
-    let workExperience = {
+    // Lägg till händelselyssnare för raderaknappar
+    const deleteBtns = document.querySelectorAll(".deleteBtn");
+    deleteBtns.forEach((deleteBtn) => {
+        deleteBtn.addEventListener("click", (e) => {
+            const jobId = e.target.getAttribute("data-id");
+            const jobElement = e.target.closest(".job");
+            deleteJob(jobId, jobElement);
+        });
+    });
+}
+
+async function openEditModal(jobId) {
+    const response = await fetch(url + "/" + jobId);
+    const job = await response.json();
+    // Här öppnar du modalfönstret med data för det specifika jobbet och fyller i fälten med den hämtade informationen
+}
+
+// Hämta formulärfältens element
+const form = document.querySelector(".form");
+const companyNameInput = document.querySelector("#employer");
+const jobtitleInput = document.querySelector("#position");
+const locationInput = document.querySelector("#location");
+const startdateInput = document.querySelector("#startdate");
+const enddateInput = document.querySelector("#enddate");
+const descriptionInput = document.querySelector("#description");
+const ongoingCheckbox = document.querySelector("#ongoing");
+
+// Eventlyssnare vid submit av formulär
+form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    // Hämta värdena från formulärfälten
+    const companyName = companyNameInput.value;
+    const jobtitle = jobtitleInput.value;
+    const location = locationInput.value;
+    const startdate = startdateInput.value;
+    const enddate = enddateInput.value;
+    const description = descriptionInput.value;
+
+    // Skapa en payload baserat på formulärvärdena
+    const workExperience = {
         companyName: companyName,
         jobtitle: jobtitle,
         location: location,
@@ -82,17 +102,29 @@ async function createJob(
         description: description,
     };
 
-    const response = await fetch(url, {
-        method: "POST",
-        headers: {
-            "content-type": "Application/json",
-        },
-        body: JSON.stringify(workExperience),
-    });
+    console.log(workExperience);
 
-    const data = await response.json();
-    console.log(data);
-}
+    // Om "Pågående" är markerad, sätt enddate till null
+    if (ongoingCheckbox.checked) {
+        workExperience.enddate = null;
+    }
+
+    try {
+        // Skicka POST-förfrågan till API:et med den skapade payloaden
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(workExperience),
+        });
+
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.error("Error:", error); // Logga eventuella fel som uppstår
+    }
+});
 
 async function updateJob(
     id,
@@ -124,7 +156,7 @@ async function updateJob(
     console.log(data);
 }
 
-async function deleteJob(id) {
+async function deleteJob(id, jobElement) {
     const response = await fetch(url + "/" + id, {
         method: "DELETE",
         headers: {
@@ -134,23 +166,17 @@ async function deleteJob(id) {
 
     const data = await response.json();
     console.log(data);
+
+       // Ta bort det aktuella jobberfarenhetsobjektet från DOM
+       jobElement.parentNode.removeChild(jobElement);
 }
 
-//Ladda in DOM innan JS körs
+// Ladda in DOM innan JS körs
 document.addEventListener("DOMContentLoaded", function () {
-    var modal = document.querySelector("#myModal"); //Container för popup
-    var btn = document.querySelector("#myBtn"); //Knapp för att öppna popup
-    var closeBtn = document.querySelector(".close"); //Kryss för att stänga popup
-    /*
-    var form = document.querySelector(".courseform");
-    var courseListContainer = document.querySelector(".courselist-container");
-    var coursecodeInput = document.querySelector("#coursecode");
-    var coursenameInput = document.querySelector("#coursename");
-    var progressionInput = document.querySelector("#progression");
-    var syllabusInput = document.querySelector("#syllabus");
-    var deleteBtn = document.querySelector("#deleteBtn"); //Knapp för att öppna popup
-    //Ladda in sparade kurser vid sidladdning
-    displayCourses();*/
+    var modal = document.querySelector("#myModal"); // Container för popup
+    var btn = document.querySelector("#myBtn"); // Knapp för att öppna popup
+    var closeBtn = document.querySelector(".close"); // Kryss för att stänga popup
+
     // Kontrollera att modal, btn och span har validerats innan de används
     if (modal && btn && closeBtn) {
         // WÖppna popup när användare trycker på knappen för "lägg till kurs"
