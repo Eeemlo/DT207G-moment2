@@ -95,8 +95,8 @@ app.post('/api/work_experience', (req, res) => {
         }
 
         let workExperience = {
-            companyName: companyName,
-            jobtitle: jobtitle,
+            company_name: companyName,
+            job_title: jobtitle,
             location: location,
             startdate: startdate,
             enddate: enddate,

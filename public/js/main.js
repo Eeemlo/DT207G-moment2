@@ -1,4 +1,4 @@
-let url = "http://127.0.0.1:3001/api/work_experience";
+let url = "http://127.0.0.1:3000/api/work_experience";
 
 async function getData() {
     const response = await fetch(url);
@@ -13,7 +13,13 @@ getData();
 
 async function iterateData(data) {
     const joblistContainer = document.querySelector(".joblist");
-    const jobExperience = data.rows;
+    
+    let jobExperience = [];
+    if (data.rows) {
+        jobExperience = data.rows; // Om data.rows är definierad, använd det
+    } else if (data.workExperience) {
+        jobExperience = [data.workExperience]; // Om data.workExperience är definierat, lägg till det i en array
+    }
 
     jobExperience.forEach((job) => {
         // Kontrollera om startdate är mer än 10 tecknen
@@ -94,8 +100,8 @@ form.addEventListener("submit", async (event) => {
 
     // Skapa en payload baserat på formulärvärdena
     const workExperience = {
-        companyName: companyName,
-        jobtitle: jobtitle,
+        company_name: companyName,
+        job_title: jobtitle,
         location: location,
         startdate: startdate,
         enddate: enddate,
@@ -121,6 +127,8 @@ form.addEventListener("submit", async (event) => {
 
         const data = await response.json();
         console.log(data);
+
+        iterateData(data);
     } catch (error) {
         console.error("Error:", error); // Logga eventuella fel som uppstår
     }
@@ -136,8 +144,8 @@ async function updateJob(
     description
 ) {
     let workExperience = {
-        companyName: companyName,
-        jobtitle: jobtitle,
+        company_name: companyName,
+        job_title: jobtitle,
         location: location,
         startdate: startdate,
         enddate: enddate,
