@@ -85,7 +85,7 @@ app.post("/api/work_experience", (req, res) => {
         res.status(400).json(errors);
         return;
     }
-/*
+
     //Add work experience to database
     client.query(
         "INSERT INTO work_experience(company_name, job_title, location, startdate, enddate, description) VALUES ($1,$2,$3,$4,$5,$6);",
@@ -107,7 +107,7 @@ app.post("/api/work_experience", (req, res) => {
 
             res.json({ message: "Jobberfarenhet tillagd", workExperience });
         }
-    );*/
+    );
 });
 
 //Ändra jobberfarenhet
