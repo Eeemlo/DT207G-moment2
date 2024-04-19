@@ -23,6 +23,8 @@ Nedan finns beskrivet hur man nå APIet på olika vis:
 
 Ett workExperience-objekt returneras/skickas som JSON med följande struktur:
 
+```
+
 {
                 "company_name": "Sawabona AB",
                 "job_title": "HR-konsult",
@@ -31,3 +33,4 @@ Ett workExperience-objekt returneras/skickas som JSON med följande struktur:
                 "enddate": "null" | "2023-01-01",
                 "description": "HR-konsult i eget bolag",
 }
+```
