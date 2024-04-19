@@ -10,6 +10,7 @@ const port = process.env.PORT;
 app.use(cors());
 app.use(express.json());
 
+/*
 //Anslut till databas
 const client = new Client({
     host: process.env.DB_HOST,
@@ -22,13 +23,14 @@ const client = new Client({
     },
 });
 
+
 client.connect((err) => {
     if (err) {
         console.log("fel vid anslutning" + err);
     } else {
         console.log("ansluten till databasen...");
     }
-});
+});*/
 
 //Routing
 
@@ -38,6 +40,7 @@ app.get("/api", (req, res) => {
 });
 
 app.get("/api/work_experience", (req, res) => {
+    /*
     client.query("SELECT * FROM work_experience;", (err, results) => {
         //Om fel...
         if (err) {
@@ -51,7 +54,7 @@ app.get("/api/work_experience", (req, res) => {
         } else {
             res.json(results);
         }
-    });
+    });*/
 });
 
 //Skapa jobberfarenhet
@@ -82,7 +85,7 @@ app.post("/api/work_experience", (req, res) => {
         res.status(400).json(errors);
         return;
     }
-
+/*
     //Add work experience to database
     client.query(
         "INSERT INTO work_experience(company_name, job_title, location, startdate, enddate, description) VALUES ($1,$2,$3,$4,$5,$6);",
@@ -104,7 +107,7 @@ app.post("/api/work_experience", (req, res) => {
 
             res.json({ message: "Jobberfarenhet tillagd", workExperience });
         }
-    );
+    );*/
 });
 
 //Ändra jobberfarenhet
@@ -117,7 +120,8 @@ app.put("/api/work_experience/:id", (req, res) => {
     let enddate = req.body.enddate;
     let description = req.body.description;
 
-    client.query(
+   /* client.query(
+        
         "UPDATE work_experience SET company_name = $1, job_title = $2, location = $3, startdate = $4, enddate = $5, description = $6 WHERE id = $7;",
         [companyName, jobtitle, location, startdate, enddate, description, id],
         (err, results) => {
@@ -128,13 +132,13 @@ app.put("/api/work_experience/:id", (req, res) => {
 
             res.json({ message: "Jobberfarenhet uppdaterad", id: id });
         }
-    );
+    );*/
 });
 
 //Radera jobberfarenhet
 app.delete("/api/work_experience/:id", (req, res) => {
     let id = req.params.id;
-
+/*
     client.query(
         "DELETE FROM work_experience WHERE id = $1;",
         [id],
@@ -146,7 +150,7 @@ app.delete("/api/work_experience/:id", (req, res) => {
 
             res.json({ message: "Jobberfarenhet raderad", id: id });
         }
-    );
+    );*/
 });
 
 //Starta
