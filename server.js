@@ -119,7 +119,7 @@ app.put("/api/work_experience/:id", (req, res) => {
     let startdate = req.body.startdate;
     let enddate = req.body.enddate;
     let description = req.body.description;
-/*
+
     client.query(
         
         "UPDATE work_experience SET company_name = $1, job_title = $2, location = $3, startdate = $4, enddate = $5, description = $6 WHERE id = $7;",
@@ -132,7 +132,7 @@ app.put("/api/work_experience/:id", (req, res) => {
 
             res.json({ message: "Jobberfarenhet uppdaterad", id: id });
         }
-    );*/
+    );
 });
 
 
