@@ -10,7 +10,7 @@ const port = process.env.PORT;
 app.use(cors());
 app.use(express.json());
 
-/*
+
 //Anslut till databas
 const client = new Client({
     host: process.env.DB_HOST,
@@ -30,7 +30,7 @@ client.connect((err) => {
     } else {
         console.log("ansluten till databasen...");
     }
-});*/
+});
 
 //Routing
 
